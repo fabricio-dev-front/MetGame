@@ -13,15 +13,26 @@ struct Produto{
     int codigo;
     char nome[50];
     float preco;
+}; struct ProdutoNode *next;
+
+struct UsuarioNode{
+    struct Usuario usuario;
+    struct UsuarioNode *next;
+};
+
+struct ProdutoNode{
+    struct Produto data;
+    struct ProdutoNode *next;
 };
 
 bool validarEmail(const char *email);
-void cadastrarUsuario(struct Usuario *usuarios, int *totalUsuarios);
-void fazerLogin(struct Usuario *usuarios, int totalUsuarios, bool *logado);
-void exibirTabelaDeProdutos(struct Produto *produtos, int totalProdutos);
-void adicionarProduto(struct Produto *produtos, int *totalProdutos);
-void removerProduto(struct Produto *produtos, int *totalProdutos);
-void buscarProdutoPorCodigo(struct Produto *produtos, int totalProdutos);
-void salvarProdutos(struct Produto *produtos, int totalProdutos);
+struct ProdutoNode* carregarProdutos();
+void cadastrarUsuario(struct UsuarioNode **head, int *totalUsuarios);
+void fazerLogin(struct UsuarioNode *head, bool *logado);
+void exibirTabelaDeProdutos(struct ProdutoNode *head);
+void adicionarProduto(struct ProdutoNode **head, int *totalProdutos);
+void removerProduto(struct ProdutoNode **head, int *totalProdutos);
+void buscarProdutoPorCodigo(struct ProdutoNode *head); 
+void salvarProdutos(struct ProdutoNode *head);
 
 #endif

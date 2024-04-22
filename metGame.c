@@ -18,37 +18,47 @@ bool validarEmail(const char *email){
     return temArroba;
 }
 
-void cadastrarUsuario(struct Usuario *usuarios, int *totalUsuarios){
+void cadastrarUsuario(struct UsuarioNode **head, int *totalUsuarios){
     printf("=== CADASTRO ===\n");
+    struct UsuarioNode *newNode = (struct UsuarioNode*)malloc(sizeof(struct UsuarioNode));
+    if (newNode == NULL) {
+        printf("Erro: Memoria insuficiente para cadastrar o usuario.\n");
+        return;
+    }
+    
     printf("Nome: ");
-    scanf("%s", usuarios[*totalUsuarios].nome);
+    scanf("%s", newNode->data.nome);
     
     do{
         printf("Email: ");
-        scanf("%s", usuarios[*totalUsuarios].email);
-        
-        if(!validarEmail(usuarios[*totalUsuarios].email)){
+        scanf("%s", newNode->data.email);
+        if(!validarEmail(newNode->data.email)){
             printf("Email invalido. Por favor, insira um email valido.\n");
         }
-    } while(!validarEmail(usuarios[*totalUsuarios].email));
-    
-    int i;
-    for(i = 0; i < *totalUsuarios; i++){
-        if(strcmp(usuarios[*totalUsuarios].email, usuarios[i].email) == 0){
+    } while(!validarEmail(newNode->data.email));
+
+    struct UsuarioNode *temp = *head;
+    while(temp != NULL){
+        if(strcmp(newNode->data.email, temp->data.email) == 0){
             printf("Este email ja esta cadastrado. Por favor, use outro email.\n");
-            return; 
+            free(newNode);
+            return;
         }
+        temp = temp->next;
     }
-    
+
     printf("Senha: ");
-    scanf("%s", usuarios[*totalUsuarios].senha);
+    scanf("%s", newNode->data.senha);
+
+    newNode->next = *head;
+    *head = newNode;
 
     printf("Usuario cadastrado com sucesso!\n");
     
     (*totalUsuarios)++;
 }
 
-void fazerLogin(struct Usuario *usuarios, int totalUsuarios, bool *logado){
+void fazerLogin(struct UsuarioNode *head, bool *logado){
     char email[50];
     char senha[20];
     
@@ -58,25 +68,30 @@ void fazerLogin(struct Usuario *usuarios, int totalUsuarios, bool *logado){
     printf("Senha: ");
     scanf("%s", senha);
     
-    int i;
-    for(i = 0; i < totalUsuarios; i++){
-        if(strcmp(email, usuarios[i].email) == 0 && strcmp(senha, usuarios[i].senha) == 0){
-            printf("Login bem-sucedido!\nBem-vindo a MetGame, %s!\n", usuarios[i].nome);
+    struct UsuarioNode *temp = head;
+    while(temp != NULL){
+        if(strcmp(email, temp->data.email) == 0 && strcmp(senha, temp->data.senha) == 0){
+            printf("Login bem-sucedido!\nBem-vindo a MetGame, %s!\n", temp->data.nome);
             *logado = true;
             return;
         }
+        temp = temp->next;
     }
     
     printf("Email ou senha incorretos. Tente novamente.\n");
 }
 
-void exibirTabelaDeProdutos(struct Produto *produtos, int totalProdutos){
+void exibirTabelaDeProdutos(struct ProdutoNode *head){
     printf("Codigo | Produto             | Preco\n");
     printf("------------------------------------\n");
-    for(int i = 0; i < totalProdutos; i++){
-        printf("%06d | %-20s | R$ %.2f\n", produtos[i].codigo, produtos[i].nome, produtos[i].preco);
+    struct ProdutoNode *temp = head;
+    while(temp != NULL){
+        printf("%06d | %-20s | R$ %.2f\n", temp->data.codigo, temp->data.nome, temp->data.preco);
+        temp = temp->next;
     }
 }
+
+// parei aqui. proxima funcao adicionarProduto.
 
 void adicionarProduto(struct Produto *produtos, int *totalProdutos){
     printf("\n=== ADICIONAR NOVO PRODUTO ===\n");
