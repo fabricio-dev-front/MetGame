@@ -1,5 +1,5 @@
-#ifndef METGAME_H
-#define METGAME_H
+#ifndef MET_H
+#define MET_H
 
 #include <stdbool.h>
 
@@ -13,10 +13,10 @@ struct Produto{
     int codigo;
     char nome[50];
     float preco;
-}; struct ProdutoNode *next;
+}; struct ProdutoNode* carregarProdutos();
 
 struct UsuarioNode{
-    struct Usuario usuario;
+    struct Usuario data;
     struct UsuarioNode *next;
 };
 
@@ -35,4 +35,4 @@ void removerProduto(struct ProdutoNode **head, int *totalProdutos);
 void buscarProdutoPorCodigo(struct ProdutoNode *head); 
 void salvarProdutos(struct ProdutoNode *head);
 
-#endif
+#endif 

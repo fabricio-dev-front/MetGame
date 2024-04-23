@@ -4,7 +4,7 @@
 ## modo de compilar:
 
 ```
-gcc main.c metgame.c -o metgame
+gcc main.c met.c -o metgame
 ```
 
 ```
