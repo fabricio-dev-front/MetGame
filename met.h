@@ -27,6 +27,7 @@ struct ProdutoNode{
 
 bool validarEmail(const char *email);
 struct ProdutoNode* carregarProdutos();
+void ordenarProdutos();
 void cadastrarUsuario(struct UsuarioNode **head, int *totalUsuarios);
 void fazerLogin(struct UsuarioNode *head, bool *logado);
 void exibirTabelaDeProdutos(struct ProdutoNode *head);

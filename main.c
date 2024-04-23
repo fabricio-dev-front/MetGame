@@ -40,7 +40,11 @@ int main(){
         printf("3. Remover produto\n");
         printf("4. Buscar produto por codigo\n");
         printf("5. Salvar produtos\n");
-        printf("6. Sair\n");
+        printf("6. Odenar produtos\n");
+        printf("7. Sair\n");
+        printf("---------------------------------------------------------------\n");
+        printf("ANTES DE SAIR, ORDENE O ARQUIVO NA OPCAO 6 (Ordenar produtos)\n");
+        printf("---------------------------------------------------------------\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
@@ -62,6 +66,10 @@ int main(){
                 printf("Produtos salvos com sucesso!\n");
                 break; 
             case 6:
+                ordenarProdutos(&produtos);
+                printf("Produtos ordenados com sucesso!\n");
+                break;    
+            case 7:
                 printf("saindo...\n");
                 logado = 0;
                 break;

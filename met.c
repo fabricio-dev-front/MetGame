@@ -211,3 +211,44 @@ bool validarEmail(const char *email){
     
     return temArroba;
 }
+
+typedef struct {
+    int codigo;
+    char nome[50];
+    float preco;
+} Produto;
+
+int compararProdutos(const void *a, const void *b){
+    return ((Produto *)a)->codigo - ((Produto *)b)->codigo;
+}
+
+void ordenarProdutos(){
+    FILE *file = fopen("produtos.txt", "r");
+    if(file == NULL){
+        printf("Não foi possível abrir o arquivo produtos.txt\n");
+        return;
+    }
+
+    Produto produtos[1000];
+    int totalProdutos = 0;
+
+    while(fscanf(file, "%d %s %f\n", &produtos[totalProdutos].codigo, produtos[totalProdutos].nome, &produtos[totalProdutos].preco) != EOF){
+        totalProdutos++;
+    }
+
+    fclose(file);
+
+    qsort(produtos, totalProdutos, sizeof(Produto), compararProdutos);
+
+    file = fopen("produtos.txt", "w");
+    if(file == NULL){
+        printf("Não foi possível abrir o arquivo produtos.txt\n");
+        return;
+    }
+
+    for(int i = 0; i < totalProdutos; i++){
+        fprintf(file, "%d %s %f\n", produtos[i].codigo, produtos[i].nome, produtos[i].preco);
+    }
+
+    fclose(file);
+}
