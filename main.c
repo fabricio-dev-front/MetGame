@@ -14,7 +14,7 @@ int main(){
     int opcao;
     do{
         printf("\n=== MENU DE USUARIO ===\n");
-        printf("1. Cadastrar usuário\n");
+        printf("1. Cadastrar usuario\n");
         printf("2. Fazer login\n");
         printf("3. Sair\n");
         printf("Escolha uma opcao: ");
